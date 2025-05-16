@@ -960,4 +960,15 @@ th, td {
 #search-btn:hover {
   background-color: #0056b3;
 }
+.poster-banner {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
 
+.poster-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
