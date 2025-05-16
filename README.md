@@ -2,7 +2,7 @@
 LETZPLAT is an E-commerce Platform for Sports Accessories 
 🏏 LetzPlay – Sports Accessories E-Commerce Website
 LetzPlay is a front-end e-commerce platform built using HTML, CSS, and JavaScript, focused on providing a seamless shopping experience for sports enthusiasts. It offers a user-friendly interface to browse and purchase various sports accessories.
-![image](https://github.com/user-attachments/assets/964ce0ad-3d0d-471a-a166-ce55ed242e66)
+<img width="150" alt="1sahil" src="https://github.com/user-attachments/assets/10a31168-b766-4854-bffc-fbe0708e5954" />
 
 
 🔗 Live Preview
@@ -20,8 +20,12 @@ Edit
 └── README.md          # Project overview and documentation
 ✨ Features
 🛒 Product Listing Page – Browse multiple sports accessories with details.
+<img width="931" alt="111sahil" src="https://github.com/user-attachments/assets/1829ba33-d9d0-483b-8603-8b0fa7d8c48a" />
+
 
 ➕ Add to Cart – Add items to cart using localStorage.
+<img width="150" alt="13sahil" src="https://github.com/user-attachments/assets/a6f09ae1-e6bb-4da3-a5be-ca01d7fbdf91" />
+
 
 🔢 Cart Counter – Updates the cart quantity dynamically in the navbar.
 
@@ -29,6 +33,8 @@ Edit
 💻 Responsive Design – Mobile-friendly layout.
 
 🧾 Profile Page – Static user profile section.
+<img width="550" alt="12sahil" src="https://github.com/user-attachments/assets/31a63593-8de0-49ab-b445-c29bff34b5c3" />
+
 
 🌐 Navigation – Links to Home, Shop, Blog, About Us, Contact, and Cart.
 
