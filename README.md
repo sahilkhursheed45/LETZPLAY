@@ -97,7 +97,7 @@ Clone the repository:
 bash
 Copy
 Edit
-git clone https://github.com/your-username/letzplay.git
+git clone https://github.com/sahilkhursheed45/letzplay.git
 cd letzplay
 Open index.html in your browser.
 
