@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LetzPlay Profile</title>
+  <style>
+    /* Basic Reset & Font */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+    /* Container */
+    .container {
+      max-width: 450px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    /* Tabs Buttons */
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #ddd;
+    }
+    .tabs button {
+      flex: 1;
+      padding: 0.75rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-weight: 600;
+      color: #555;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .tabs button.active {
+      border-bottom: 3px solid #1f2937;
+      color: #1f2937;
+    }
+    /* Forms and profile section */
+    form, .profile-section {
+      display: none;
+    }
+    form.active, .profile-section.active {
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button.submit-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #1f2937;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button.submit-btn:hover {
+      background-color: #111827;
+    }
+    .extra-links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .extra-links a {
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    /* Profile Section Styles */
+    .profile-header h3 {
+      margin-top: 0;
+      margin-bottom: 0.3rem;
+      text-transform: capitalize;
+      color: #333;
+    }
+    .profile-header p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Tabs -->
+    <div class="tabs">
+      <button id="tab-profile">Profile</button>
+      <button id="tab-login">Login</button>
+      <button id="tab-signup">Sign Up</button>
+    </div>
+
+    <!-- Profile Section -->
+    <!-- Profile Section -->
+<section class="profile-section">
+  <div class="profile-header">
+    <h3 id="profile-name"></h3>
+    <p>Welcome to your profile page!</p>
+  </div>
+  <p><strong>Email:</strong> <span id="profile-email"></span></p>
+
+  <!-- Logout Button -->
+  <button id="logout-btn" class="submit-btn" style="margin-top: 1rem; background:#f44336;">Logout</button>
+
+  <!-- ✅ Back to Home Button -->
+  <button id="back-home-btn" class="submit-btn" style="margin-top: 1rem; background:#4caf50;">Back to Home</button>
+</section>
+
+    <!-- Login Form -->
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button type="submit" class="submit-btn">Login</button>
+      <div class="extra-links">
+        <p>Don't have an account? <a id="to-signup">Sign up</a></p>
+      </div>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signup-form">
+      <input type="text" id="signup-name" placeholder="Full Name" required />
+      <input type="email" id="signup-email" placeholder="Email" required />
+      <input type="password" id="signup-password" placeholder="Password" required />
+      <input type="password" id="signup-confirmPassword" placeholder="Confirm Password" required />
+      <button type="submit" class="submit-btn">Sign Up</button>
+      <div class="extra-links">
+        <p>Already have an account? <a id="to-login">Login here</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Tabs elements
+    const tabProfile = document.getElementById('tab-profile');
+    const tabLogin = document.getElementById('tab-login');
+    const tabSignup = document.getElementById('tab-signup');
+
+    // Forms and profile section
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const profileSection = document.querySelector('.profile-section');
+
+    // Switch to profile section
+    function showProfile() {
+      tabProfile.classList.add('active');
+      tabLogin.classList.remove('active');
+      tabSignup.classList.remove('active');
+
+      profileSection.classList.add('active');
+      loginForm.classList.remove('active');
+      signupForm.classList.remove('active');
+    }
+
+    // Switch to login form
+    function showLogin() {
+      tabLogin.classList.add('active');
+      tabSignup.classList.remove('active');
+      tabProfile.classList.remove('active');
+
+      loginForm.classList.add('active');
+      signupForm.classList.remove('active');
+      profileSection.classList.remove('active');
+    }
+
+    // Switch to signup form
+    function showSignup() {
+      tabSignup.classList.add('active');
+      tabLogin.classList.remove('active');
+      tabProfile.classList.remove('active');
+
+      signupForm.classList.add('active');
+      loginForm.classList.remove('active');
+      profileSection.classList.remove('active');
+    }
+
+    // Attach tab button events
+    tabProfile.addEventListener('click', () => {
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      if (loggedInUser) {
+        populateProfile(loggedInUser);
+        showProfile();
+      } else {
+        alert('❌ You must log in first!');
+        showLogin();
+      }
+    });
+    tabLogin.addEventListener('click', showLogin);
+    tabSignup.addEventListener('click', showSignup);
+
+    // Links inside forms for switching tabs
+    document.getElementById('to-signup').addEventListener('click', (e) => {
+      e.preventDefault();
+      showSignup();
+    });
+    document.getElementById('to-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      showLogin();
+    });
+
+    // Login form submission
+   // Login form submission
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (user) {
+    alert('✅ Login successful!');
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+    window.location.href = 'index.html'; // 👈 Redirects to homepage
+  } else {
+    alert('❌ Invalid email or password.');
+  }
+});
+
+
+    // Signup form submission
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert('❌ Passwords do not match.');
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+      if (users.find(u => u.email === email)) {
+        alert('⚠️ An account with this email already exists.');
+        return;
+      }
+
+      users.push({ name, email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+      alert('✅ Account created successfully! You can now log in.');
+      showLogin();
+    });
+
+    // Populate profile info
+    function populateProfile(user) {
+      document.getElementById('profile-name').textContent = user.name;
+      document.getElementById('profile-email').textContent = user.email;
+    }
+
+    // On page load, if logged in show profile otherwise login form
+    window.addEventListener('load', () => {
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      if (loggedInUser) {
+        populateProfile(loggedInUser);
+        showProfile();
+      } else {
+        showLogin();
+      }
+    });
+
+    // Logout button
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('loggedInUser');
+      alert('You have logged out.');
+      showLogin();
+    });
+    document.getElementById('back-home-btn').addEventListener('click', () => {
+  window.location.href = 'index.html'; // Redirect to homepage
+});
+  </script>
+</body>
+</html>
