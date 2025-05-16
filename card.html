@@ -28,9 +28,28 @@
   </section>
 
   <section>
-    <h2>Your Cart</h2>
-    <div id="cart-items"></div>
-    <div class="total-section" id="cart-summary"></div>
+   <h2>Your Cart</h2>
+
+<!-- Deliver to section -->
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #ddd; margin-bottom: 20px; border-radius: 8px;">
+  <div id="userDetails" class="cart-user-info">
+    <h3>Deliver To</h3>
+    <p><strong>Name:</strong> <span id="displayName"></span></p>
+    <p><strong>Address:</strong> <span id="displayAddress"></span></p>
+    <p><strong>Pincode:</strong> <span id="displayPincode"></span></p>
+  </div>
+  <div>
+    <img src="./cartimg.jpeg" alt="Delivery Poster" style="width: 400px;height 200px border-radius: 5px;" />
+  </div>
+</div>
+
+
+
+
+<div id="cart-items"></div>
+<div id="cart-summary" class="total-section"></div>
+
+
   </section>
 
   <script>
@@ -103,15 +122,16 @@
 </script
 
   <section id="form-details">
-    <form action="">
-      <span>Leave a Message</span>
-      <h2>We love to hear from you</h2>
-      <input type="text" placeholder="Enter your name" />
-      <input type="text" placeholder="Enter your Email" />
-      <input type="text" placeholder="Enter your Subject" />
-      <textarea cols="30" rows="10" placeholder="Your Message"></textarea>
-      <button class="normal">Submit</button>
-    </form>
+  <form id="contactForm">
+    <span>Leave a Message</span>
+    <h2>We love to hear from you</h2>
+    <input type="text" placeholder="Enter your name" />
+    <input type="text" placeholder="Enter your Email" />
+    <input type="text" placeholder="Enter your Subject" />
+    <textarea cols="30" rows="10" placeholder="Your Message"></textarea>
+    <button class="normal" type="submit">Submit</button>
+  </form>
+
 
     <div class="people">
       <div>
@@ -142,24 +162,35 @@
   </section>
   <div id="cart-container"></div>
 
-<script>
-  const cartContainer = document.getElementById('cart-container');
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  if (cart.length === 0) {
-    cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+<script>
+function loadUserInfo() {
+  const user = JSON.parse(localStorage.getItem('loggedInUser'));
+  if (user) {
+    document.getElementById('displayName').innerText = user.name || 'Not Available';
+    document.getElementById('displayAddress').innerText = user.address || 'Not Available';
+    document.getElementById('displayPincode').innerText = user.pincode || 'Not Available';
   } else {
-    cart.forEach(item => {
-      const product = document.createElement('div');
-      product.innerHTML = `
-        <img src="${item.img}" width="100">
-        <h3>${item.name}</h3>
-        <p>Price: ${item.price}rs</p>
-        <hr>
-      `;
-      cartContainer.appendChild(product);
-    });
+    document.getElementById('displayName').innerText = 'Not Available';
+    document.getElementById('displayAddress').innerText = 'Not Available';
+    document.getElementById('displayPincode').innerText = 'Not Available';
   }
+}
+window.addEventListener('DOMContentLoaded', () => {
+  loadUserInfo();  // call the function that updates name, address, pincode
+  renderCart();    // make sure cart is rendered as well
+});
+
 </script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form from submitting normally
+  alert('Thank you for your response!');
+  this.reset(); // Optional: Reset form fields
+});
+</script>
+
+
+
 </body>
 </html>
